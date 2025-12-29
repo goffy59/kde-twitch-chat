@@ -1,0 +1,5 @@
+# nothing sensitive should be here, but keep clutter out
+*.swp
+*~
+__pycache__/
+*.pyc

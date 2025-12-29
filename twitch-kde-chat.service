@@ -1,0 +1,24 @@
+[Unit]
+Description=Twitch chat to KDE notifications (Wayland-friendly)
+After=graphical-session.target network-online.target
+Wants=graphical-session.target network-online.target
+
+[Service]
+Type=simple
+Environment=TWITCH_CHANNEL=hopelessdystopian
+Environment=TWITCH_IRC_PORT=6667
+Environment=PYTHONUNBUFFERED=1
+Environment=TWITCH_NOTIFY_TIMEOUT_MS=30000
+Environment=TWITCH_NOTIFY_BATCH_WINDOW_SEC=0.8
+Environment=TWITCH_NOTIFY_MAX_LINES=6
+# Debug (uncomment if needed)
+# Environment=TWITCH_DEBUG=1
+
+ExecStartPre=/usr/bin/dbus-update-activation-environment --systemd --all
+ExecStart=/usr/bin/python3 -u %h/.local/share/twitch-kde-chat/twitch_kde_chat.py
+
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=default.target
